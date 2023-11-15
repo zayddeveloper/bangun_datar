@@ -1,3 +1,4 @@
+import 'package:bangun_datar_app/pages/persegi_page.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
@@ -8,12 +9,30 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.green.shade300,
-        title: CustomText(text: "HomePage",),
+        title: CustomText(
+          text: "HomePage",
+        ),
       ),
-      body: Column(
+      body: ListView(
         children: [
-          CustomMenu(imageAssets: "assets/persegi.jpeg",title: "Pesrsegi"),
-          CustomMenu(imageAssets: "assets/segitiga.jpeg",title: "Segitiga"),
+          Row(
+            children: [
+              Expanded(
+                child: InkWell(
+                    onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => PersegiPage()));
+                    },
+                    child: CustomMenu(imageAssets: "assets/persegi.jpeg", title: "Persegi")),
+              ),
+              Expanded(child: CustomMenu(imageAssets: "assets/segitiga.jpeg", title: "Persegi Panjang")),
+            ],
+          ),
+          Row(
+            children: [
+              Expanded(child: CustomMenu(imageAssets: "assets/segitiga.jpeg", title: "Lingkaran")),
+              Expanded(child: CustomMenu(imageAssets: "assets/segitiga.jpeg", title: "Segitiga")),
+            ],
+          ),
         ],
       ),
     );
@@ -22,9 +41,12 @@ class HomePage extends StatelessWidget {
 
 class CustomText extends StatelessWidget {
   const CustomText({
-    super.key, required this.text,
+    super.key,
+    required this.text,
   });
-final String text;
+
+  final String text;
+
   @override
   Widget build(BuildContext context) {
     return Text(
@@ -36,8 +58,11 @@ final String text;
 
 class CustomMenu extends StatelessWidget {
   const CustomMenu({
-    super.key, required this.imageAssets, required this.title,
+    super.key,
+    required this.imageAssets,
+    required this.title,
   });
+
   final String imageAssets;
   final String title;
 
@@ -53,7 +78,10 @@ class CustomMenu extends StatelessWidget {
             imageAssets,
             height: 100,
           ),
-          Text(title),
+          Text(
+            title,
+            style: TextStyle(color: Colors.white),
+          ),
         ],
       ),
     );
